@@ -1,0 +1,91 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '27.0.3'
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        externalNativeBuild {
+            cmake {
+                arguments  '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=gnustl_static'
+                cppFlags "-std=c++11","-frtti", "-fexceptions"
+            }
+        }
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
+
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+    }
+    aaptOptions {
+        noCompress "tflite"
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+repositories {
+    maven {
+        url 'https://google.bintray.com/tensorflow'
+    }
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.0.0-alpha3'
+    implementation 'androidx.cardview:cardview:1.0.0-alpha3'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0-alpha3'
+    implementation 'androidx.annotation:annotation:1.0.0-alpha3'
+    implementation 'androidx.legacy:legacy-support-v13:1.0.0-alpha1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0-alpha1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
+    implementation 'com.google.android.material:material:1.0.0-alpha3'
+    implementation 'com.android.volley:volley:1.1.0'
+    implementation 'com.google.code.gson:gson:2.2.4'
+    implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
+    implementation project(':openCVLibrary341')
+}
