@@ -1,7 +1,7 @@
-# Butcher2 (Pose Estimation For Mobile implemented in Java using TF Lite)
+# Pose Estimation For Mobile implemented in Java using TF Lite
 
 ## Description
-A replication of PoseEstimation project on github which implemented in Kotlin
+A replica of PoseEstimation project on github which implemented in Kotlin
 (https://github.com/edvardHua/PoseEstimationForMobile)
 
 
